@@ -4,25 +4,25 @@ import java.io.PrintStream;
 
 public class TestFormatHTML implements TestFormat {
 	PrintStream out;
-	
+
 	public TestFormatHTML(PrintStream out) {
 		this.out = out;
 	}
-	
-	public void title(String text)
-	{
+
+	public void title(String text) {
 		out.print("<TD>");
 		out.print(text);
 		out.print("</TD>");
 	}
-	
+
 	public void formatTextData(String text) {
 		out.append(text);
 	}
-	
+
 	public void START_ARRAY() {
-		out.print("<table>"); 
+		out.print("<table>");
 	}
+
 	public void STOP_ARRAY() {
 		out.print("</table>");
 	}
@@ -30,6 +30,7 @@ public class TestFormatHTML implements TestFormat {
 	public void START_LINE() {
 		out.print("<TR>");
 	}
+
 	public void STOP_LINE() {
 		out.print("</TR>");
 	}
@@ -37,6 +38,7 @@ public class TestFormatHTML implements TestFormat {
 	public void START_CELL() {
 		out.print("<TD>");
 	}
+
 	public void STOP_CELL() {
 		out.print("</TD>");
 	}
@@ -96,8 +98,11 @@ public class TestFormatHTML implements TestFormat {
 		out.println("</html>");
 		out.close();
 	}
-	
-	public void formatTestData(String text){
+
+	public void formatTestData(String text) {
 		out.append("<code>").append(text).append("</code>");
+	}
+
+	public void setTestCost(int value) {
 	}
 }

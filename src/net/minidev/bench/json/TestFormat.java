@@ -25,4 +25,6 @@ public interface TestFormat {
 	public void fileStop();
 	public void formatTestData(String text);
 	public void formatTextData(String text);
+	
+	public void setTestCost(int value);
 }

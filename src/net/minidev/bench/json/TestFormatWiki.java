@@ -80,4 +80,7 @@ public class TestFormatWiki implements TestFormat {
 	public void formatTestData(String text){
 		out.append(" {{{ ").append(text).append(" }}} ");
 	}
+	
+	public void setTestCost(int value) {
+	}
 }
