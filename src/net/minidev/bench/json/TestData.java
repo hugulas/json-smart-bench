@@ -148,8 +148,15 @@ public class TestData {
 		tests.add(new TestData("{ \"v\":1}", "{\"v\":1}", "Support simple Object int value"));
 		tests.add(new TestData("{ \"v\":\"ab'c\"}", "{\"v\":\"ab'c\"}", "Support simple Quote in String"));
 
-		tests.add(new TestData("{ \"PI\":3.141E-10}", "{\"PI\":3.141E-10}", "Support simple Object float value"));
-		tests.add(new TestData("{ \"PI\":3.141e-10}", "{\"PI\":3.141E-10}", "Support lowcase float value"));
+		t = new TestData("Support simple Object float value");
+		t.setData("{ \"PI\":3.141E-10}");
+		t.setSolution("{\"PI\":3.141E-10}", "{\"PI\":3.141e-10}");
+		tests.add(t);
+		
+		t = new TestData("Support lowcase float value");
+		t.setData("{ \"PI\":3.141e-10}");
+		t.setSolution("{\"PI\":3.141E-10}", "{\"PI\":3.141e-10}");
+		tests.add(t);
 
 		tests.add(new TestData("{ \"v\":12345123456789}", "{\"v\":12345123456789}", "Long number support"));
 		tests.add(new TestData("{ \"v\":123456789123456789123456789}", "{\"v\":123456789123456789123456789}",
