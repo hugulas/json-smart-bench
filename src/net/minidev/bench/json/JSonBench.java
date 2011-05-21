@@ -52,9 +52,10 @@ public class JSonBench {
 		/**
 		 * build Test List
 		 */
-		final TestFormat formater = new TestFormatWikiColor(System.out);
-		// final TestFormat formater = new TestFormatWiki();
-
+		//final TestFormat formater = new TestFormatWikiColor(System.out);
+		//final TestFormat formater = new TestFormatWiki(System.out);
+		final TestFormat formater = new TestFormatHTML(System.out);
+		
 		formater.fileStart();
 		ArrayList<TestData> tests = TestData.getCompTests();
 		ArrayList<JsonInter> apis = new ArrayList<JsonInter>();
