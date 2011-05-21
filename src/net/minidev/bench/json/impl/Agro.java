@@ -41,6 +41,6 @@ public class Agro extends net.minidev.bench.json.JsonInter {
 
 	@Override
 	public String getSimpleName() {
-		return "Agro";
+		return "Argo";
 	}
 }

@@ -86,13 +86,13 @@ public class TestFormatWikiColor implements TestFormat {
 	public void setTestCost(int value) {
 		if (prevScore != value) {
 			if (value == 10) {
+				out.append("\r\n");
 				out.append("= NON RFC 4627 Tests =\r\n");
 				out.append("*Following tests not of interest to use standard*\r\n");
-				out.append("\r\n");
 			}
 			if (value == 1) {
-				out.append("= trap tests =\r\n");
 				out.append("\r\n");
+				out.append("= trap tests =\r\n");
 			}
 			prevScore = value;
 		}

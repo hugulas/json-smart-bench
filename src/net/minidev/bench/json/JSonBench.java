@@ -2,11 +2,12 @@ package net.minidev.bench.json;
 
 import java.util.ArrayList;
 import net.minidev.bench.json.impl.*;
+
 /**
  * Json Bench erntry point
  * 
  * @author Uriel Chemouni <uchemouni@gmail.com>
- *
+ * 
  */
 public class JSonBench {
 	static int threadPause = 40;
@@ -14,7 +15,7 @@ public class JSonBench {
 
 	@SuppressWarnings("rawtypes")
 	static Class[] clazz = new Class[] { StringTree.class, JSonIJ.class, Jackson.class, Agro.class, Simple.class,
-			Sojo.class, Alibaba.class, NetSfJson.class, OrgJSonMe.class, OrgJSon.class, Minidev.class }; // ,
+			Sojo.class, Alibaba.class, NetSfJson.class, OrgJSonMe.class, OrgJSon.class, Minidev.class };
 
 	// GoogleGson.class,
 	public static void main(String[] args) throws Exception {
@@ -52,10 +53,10 @@ public class JSonBench {
 		/**
 		 * build Test List
 		 */
-		//final TestFormat formater = new TestFormatWikiColor(System.out);
-		//final TestFormat formater = new TestFormatWiki(System.out);
-		final TestFormat formater = new TestFormatHTML(System.out);
-		
+		final TestFormat formater = new TestFormatWikiColor(System.out);
+		// final TestFormat formater = new TestFormatWiki(System.out);
+		// final TestFormat formater = new TestFormatHTML(System.out);
+
 		formater.fileStart();
 		ArrayList<TestData> tests = TestData.getCompTests();
 		ArrayList<JsonInter> apis = new ArrayList<JsonInter>();
@@ -69,6 +70,7 @@ public class JSonBench {
 
 		formater.START_ARRAY();
 		for (final TestData test : tests) {
+			formater.setTestCost(test.score);
 			formater.START_LINE();
 
 			formater.START_CELL();
