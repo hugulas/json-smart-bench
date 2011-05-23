@@ -20,7 +20,7 @@ public class Minidev extends net.minidev.bench.json.JsonInter {
 	@Override
 	public void init() {
 		obj = null;
-		p = new JSONParser();
+		p = new JSONParser(JSONParser.MODE_RFC4627);
 	}
 
 	
