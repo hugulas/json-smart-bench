@@ -1,19 +1,28 @@
 package net.minidev.bench.json;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.TreeMap;
 
-import org.apache.commons.io.FileUtils;
-
-import com.sdicons.json.validator.impl.predicates.Int;
-
-import net.minidev.bench.json.impl.*;
+import net.minidev.bench.json.impl.Agro;
+import net.minidev.bench.json.impl.Alibaba;
+import net.minidev.bench.json.impl.JSonIJ;
+import net.minidev.bench.json.impl.Jackson;
+import net.minidev.bench.json.impl.Minidev;
+import net.minidev.bench.json.impl.NetSfJson;
+import net.minidev.bench.json.impl.OrgJSon;
+import net.minidev.bench.json.impl.OrgJSonMe;
+import net.minidev.bench.json.impl.Simple;
+import net.minidev.bench.json.impl.Sojo;
+import net.minidev.bench.json.impl.StringTree;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
+
+import org.apache.commons.io.FileUtils;
 
 /**
  * Json Bench erntry point
@@ -33,19 +42,9 @@ public class JSonBench {
 	// GoogleGson.class,
 	public static void main(String[] args) throws Exception {
 		// start(new String[]{ "test"});
-		// for (int i = 0; i < 11; i++) {
-		// String test = "benchPreload";
-		// test = "bench";
-		// start(new String[] { test, "boolean", "" + i });
-		// start(new String[] { test, "mixte", "" + i });
-		// start(new String[] { test, "float", "" + i });
-		// start(new String[] { test, "unicode", "" + i });
-		// start(new String[] { test, "text", "" + i });
-		// start(new String[] { test, "int", "" + i });
-		// }
-		// start(new String[] { "showResult" });
-		start(new String[] { "showScript" });
-		// start(args);
+	//	 start(new String[] { "showResult" });
+	//	start(new String[] { "showScript" });
+		start(args);
 	}
 
 	public static void start(String[] args) throws Exception {
@@ -77,15 +76,62 @@ public class JSonBench {
 				impId = Integer.parseInt(args[1]);
 			}
 			TestData.changeTest(testName);
-
+			if (impId >= clazz.length)
+				return;
 			String apiName = ((JsonInter) (clazz[impId].newInstance())).getSimpleName();
 
-			long ms = bench(impId);
-			addResult(cmd, testName, apiName, ms);
+			long ms = -1;
+			try {
+				bench(impId);
+				addResult(cmd, testName, apiName, ms);
+			} catch (Exception e) {
+			}
 		} else if (cmd.startsWith("showResult")) {
 			formatResult();
 		} else if (cmd.startsWith("showScript")) {
+			showScript();
 		}
+	}
+
+	public static void showScript() throws IOException {
+		File startBench = new File("runbench.bat");
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("@echo off\r\n");
+		sb.append("set CLASSPATH=");
+		File dir = new File("lib");
+		for (String s : dir.list()) {
+			if (s.endsWith(".jar"))
+				sb.append("lib").append(File.separator).append(s).append(';');
+		}
+		sb.append("bin");
+		sb.append("\r\n");
+
+		String[] allbench = "benchPreload|bench".split("\\|");
+		String[] allTest = "text|unicode|float|int|mixte|boolean".split("\\|");
+
+		for (int pass = 0; pass < 10; pass++) {
+			sb.append("echo '**************'\r\n");
+			sb.append("echo 'pass " + pass + "'\r\n");
+			sb.append("echo '**************'\r\n");
+			for (String bench : allbench) {
+				System.out.println("bench : " + bench);
+				for (String test : allTest) {
+					for (int id = 0; id < 11; id++) {
+						sb.append("java ").append(JSonBench.class.getName());
+						sb.append(" ").append(bench);
+						sb.append(" ").append(test);
+						sb.append(" ").append(id);
+						sb.append("\r\n");
+					}
+				}
+			}
+		}
+
+		sb.append("java ").append(JSonBench.class.getName());
+		sb.append(" showResult > result.wiki").append("\r\n");
+		sb.append("pause\r\n");
+		FileUtils.writeStringToFile(startBench, sb.toString());
 	}
 
 	public static void formatResult() throws Exception {
@@ -105,12 +151,12 @@ public class JSonBench {
 
 			TreeMap<String, Integer> total = new TreeMap<String, Integer>();
 			ArrayList<String> sortedApi = new ArrayList<String>();
-			
+
 			for (String api : allApiName) {
 				int tot = 0;
 				for (String test : allTestName) {
-					JSONObject obj = (JSONObject)allTest.get(test);
-					Number n = (Number)obj.get(api);
+					JSONObject obj = (JSONObject) allTest.get(test);
+					Number n = (Number) obj.get(api);
 					if (n == null || n.intValue() == -1) {
 						tot = -1;
 						break;
@@ -137,13 +183,13 @@ public class JSonBench {
 					key_ = "00000" + api;
 				sortedApi.add(key_);
 			}
-			
+
 			Collections.sort(sortedApi);
 			Collections.reverse(sortedApi);
-			for (int i=0; i<sortedApi.size(); i++) {
+			for (int i = 0; i < sortedApi.size(); i++) {
 				sortedApi.set(i, sortedApi.get(i).substring(6));
 			}
-			
+
 			ps.print("|| Test || ");
 			for (String testName : sortedApi) {
 				ps.print(" *");
@@ -180,7 +226,7 @@ public class JSonBench {
 				ps.print("||");
 			}
 			ps.println("");
-			
+
 		}
 	}
 
@@ -229,7 +275,7 @@ public class JSonBench {
 			FileUtils.writeStringToFile(file, root.toJSONString());
 			System.out.println("Scorer Updated");
 		} else {
-			System.out.println("Scorer droped");
+			// System.out.println("Scorer droped");
 		}
 
 	}
@@ -353,10 +399,6 @@ public class JSonBench {
 
 	@SuppressWarnings("rawtypes")
 	static void bench() throws Exception {
-		System.gc();
-		Thread.sleep(1000);
-		System.out.println("start");
-
 		ArrayList<String> msgs = TestData.genTestMessages();
 		for (Class c : clazz) {
 			bench(c, msgs);
@@ -376,9 +418,11 @@ public class JSonBench {
 		String text = null;
 
 		if (preload) {
-			p.parseObj("{\"preload\":true, \"int\":1, \"float\":1.4, \"String\":\"text\"}");
+			p.parseObj("{\"preload\":true, \"int\":1, \"float\":1.4, \"String\":\"text\"}").toString();
 			System.gc();
-			Thread.sleep(1000L);
+			System.gc();
+			System.gc();
+			Thread.sleep(600L);
 		}
 
 		try {
@@ -391,9 +435,9 @@ public class JSonBench {
 			System.out.println(TestData.testMode + "> " + p.getSimpleName() + " : " + T1 + "ms");
 			return T1;
 		} catch (Exception e) {
-			System.out.println("Parser error " + e);
-			System.out.println("failed on " + text);
-			e.printStackTrace();
+			//System.out.println("Parser error " + e);
+			//System.out.println("failed on " + text);
+			//e.printStackTrace();
 		}
 		return -1;
 	}
