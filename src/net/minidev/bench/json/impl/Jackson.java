@@ -9,11 +9,11 @@ import org.codehaus.jackson.map.ObjectMapper;
 public class Jackson extends net.minidev.bench.json.JsonInter {
 	ObjectMapper p;
 	JsonNode obj;
-	
+
 	public Jackson() {
 		init();
 	}
-	
+
 	@Override
 	public void init() {
 		p = new ObjectMapper();
@@ -28,17 +28,17 @@ public class Jackson extends net.minidev.bench.json.JsonInter {
 
 	@Override
 	public Object parseArray(String json) throws Exception {
-		JsonNode n = p.readTree(json);
-		// text = n.toString();
-		return n;
-		// ArrayList n = p.readValue(json, ArrayList.class);
-		// text = n.toString();
-		// return n;
+		obj = p.readTree(json);
+		return obj;
 	}
 
 	@Override
 	public String toJsonString() {
-		return obj.toString();
+		try {
+			return p.writeValueAsString(obj);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override

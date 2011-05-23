@@ -42,8 +42,9 @@ public class JSonBench {
 	// GoogleGson.class,
 	public static void main(String[] args) throws Exception {
 		// start(new String[]{ "test"});
-	//	 start(new String[] { "showResult" });
-	//	start(new String[] { "showScript" });
+		// start(new String[] { "showResult" });
+		// start(new String[] { "showScript" });
+		// start(new String[] { "benchPreload", "int", "0"});
 		start(args);
 	}
 
@@ -82,7 +83,7 @@ public class JSonBench {
 
 			long ms = -1;
 			try {
-				bench(impId);
+				ms = bench(impId);
 				addResult(cmd, testName, apiName, ms);
 			} catch (Exception e) {
 			}
@@ -273,9 +274,9 @@ public class JSonBench {
 		if (n == null || n.longValue() > time) {
 			current.put(apiName, time);
 			FileUtils.writeStringToFile(file, root.toJSONString());
-			System.out.println("Scorer Updated");
+			System.out.println("Score Updated");
 		} else {
-			// System.out.println("Scorer droped");
+			System.out.println("Best : " + n);
 		}
 
 	}
@@ -435,9 +436,9 @@ public class JSonBench {
 			System.out.println(TestData.testMode + "> " + p.getSimpleName() + " : " + T1 + "ms");
 			return T1;
 		} catch (Exception e) {
-			//System.out.println("Parser error " + e);
-			//System.out.println("failed on " + text);
-			//e.printStackTrace();
+			// System.out.println("Parser error " + e);
+			// System.out.println("failed on " + text);
+			// e.printStackTrace();
 		}
 		return -1;
 	}
