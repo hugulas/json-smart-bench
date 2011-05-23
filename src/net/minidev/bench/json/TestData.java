@@ -174,7 +174,7 @@ public class TestData {
 
 		t = new TestData("Support non protected / text");
 		t.setData("{ \"a\":\"hp://foo\"}");
-		t.setSolution("{\"a\":\"hp:\\/\\/foo\"}");
+		t.setSolution("{\"a\":\"hp:\\/\\/foo\"}", "{\"a\":\"hp://foo\"}");
 
 		tests.add(t);
 

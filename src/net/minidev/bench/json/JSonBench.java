@@ -8,17 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.TreeMap;
 
-import net.minidev.bench.json.impl.Agro;
-import net.minidev.bench.json.impl.Alibaba;
-import net.minidev.bench.json.impl.JSonIJ;
-import net.minidev.bench.json.impl.Jackson;
-import net.minidev.bench.json.impl.Minidev;
-import net.minidev.bench.json.impl.NetSfJson;
-import net.minidev.bench.json.impl.OrgJSon;
-import net.minidev.bench.json.impl.OrgJSonMe;
-import net.minidev.bench.json.impl.Simple;
-import net.minidev.bench.json.impl.Sojo;
-import net.minidev.bench.json.impl.StringTree;
+import net.minidev.bench.json.impl.*;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 
@@ -37,11 +27,11 @@ public class JSonBench {
 
 	@SuppressWarnings("rawtypes")
 	static Class[] clazz = new Class[] { StringTree.class, JSonIJ.class, Jackson.class, Agro.class, Simple.class,
-			Sojo.class, Alibaba.class, NetSfJson.class, OrgJSonMe.class, OrgJSon.class, Minidev.class };
+			Sojo.class, Alibaba.class, NetSfJson.class, OrgJSonMe.class, OrgJSon.class, JSonSmartStrict.class, JSonSmart.class};
 
 	// GoogleGson.class,
 	public static void main(String[] args) throws Exception {
-		// start(new String[]{ "test"});
+		// start(new String[] { "test" });
 		// start(new String[] { "showResult" });
 		// start(new String[] { "showScript" });
 		// start(new String[] { "benchPreload", "int", "0"});

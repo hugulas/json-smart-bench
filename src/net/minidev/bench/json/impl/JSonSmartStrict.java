@@ -9,11 +9,11 @@ import net.minidev.json.parser.*;
  * @author uriel
  *
  */
-public class Minidev extends net.minidev.bench.json.JsonInter {
+public class JSonSmartStrict extends net.minidev.bench.json.JsonInter {
 	JSONParser p;
 	Object obj;
 	
-	public Minidev() {
+	public JSonSmartStrict() {
 		init();
 	}
 	
@@ -43,7 +43,7 @@ public class Minidev extends net.minidev.bench.json.JsonInter {
 
 	@Override
 	public String getSimpleName() {
-		return "Json-Smart";
+		return "Json-smart-strict";
 	}
 
 }
