@@ -167,8 +167,14 @@ public class TestData {
 
 		tests.add(new TestData("[ { }, { },[]]", "[{},{},[]]", "Array of empty Object"));
 
-		t = new TestData("Support Unicode Text");
+		t = new TestData("Support lowercase Unicode Text");
 		t.setData("{ \"v\":\"\\u2000\\u20ff\"}");
+		t.setSolution("{\"v\":\"\\u2000\\u20ff\"}", "{\"v\":\"\\u2000\\u20FF\"}");
+		tests.add(t);
+
+
+		t = new TestData("Support uppercase Unicode Text");
+		t.setData("{ \"v\":\"\\u2000\\u20FF\"}");
 		t.setSolution("{\"v\":\"\\u2000\\u20ff\"}", "{\"v\":\"\\u2000\\u20FF\"}");
 		tests.add(t);
 

@@ -1,6 +1,7 @@
 package net.minidev.bench.json;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.io.PrintStream;
 import java.text.NumberFormat;
@@ -10,7 +11,7 @@ import java.util.TreeMap;
 
 import net.minidev.bench.json.impl.*;
 import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
+import net.minidev.json.JSONValue;
 
 import org.apache.commons.io.FileUtils;
 
@@ -27,7 +28,8 @@ public class JSonBench {
 
 	@SuppressWarnings("rawtypes")
 	static Class[] clazz = new Class[] { StringTree.class, JSonIJ.class, Jackson.class, Agro.class, Simple.class,
-			Sojo.class, Alibaba.class, NetSfJson.class, OrgJSonMe.class, OrgJSon.class, JSonSmartStrict.class, JSonSmart.class};
+			Sojo.class, Alibaba.class, NetSfJson.class, OrgJSonMe.class, OrgJSon.class, JSonSmartStrict.class,
+			JSonSmart.class };
 
 	// GoogleGson.class,
 	public static void main(String[] args) throws Exception {
@@ -126,11 +128,12 @@ public class JSonBench {
 	}
 
 	public static void formatResult() throws Exception {
-		NumberFormat nf = NumberFormat.getInstance();
+		NumberFormat nf = NumberFormat.getPercentInstance();
+
 		PrintStream ps = System.out;
 		File file = new File("result.json");
 		String text = FileUtils.readFileToString(file);
-		JSONObject root = (JSONObject) new JSONParser().parse(text);
+		JSONObject root = (JSONObject) JSONValue.parse(text);
 
 		for (String bench : root.keySet()) {
 			ps.println("");
@@ -141,6 +144,7 @@ public class JSonBench {
 			Iterable<String> allTestName = allTest.keySet();
 
 			TreeMap<String, Integer> total = new TreeMap<String, Integer>();
+			TreeMap<String, Integer> bests = new TreeMap<String, Integer>();
 			ArrayList<String> sortedApi = new ArrayList<String>();
 
 			for (String api : allApiName) {
@@ -148,14 +152,23 @@ public class JSonBench {
 				for (String test : allTestName) {
 					JSONObject obj = (JSONObject) allTest.get(test);
 					Number n = (Number) obj.get(api);
+
 					if (n == null || n.intValue() == -1) {
 						tot = -1;
 						break;
 					} else {
 						tot += n.intValue();
+						Number best = bests.get(test);
+						if (best == null || best.intValue() > n.intValue())
+							bests.put(test, n.intValue());
 					}
 				}
 				total.put(api, tot);
+				Number best = bests.get("total");
+				if (tot > 0)
+					if (best == null || best.intValue() > tot)
+						bests.put("total", tot);
+
 				String key_;
 				api = tot + api;
 				if (tot > 100000)
@@ -200,8 +213,10 @@ public class JSonBench {
 					Number value = (Number) allApi.get(apiName);
 					if (value == null || value.intValue() == -1)
 						ps.print("N/A");
-					else
-						ps.print(nf.format(value));
+					else {
+
+						ps.print(nf.format(value.floatValue() / bests.get(testName).floatValue()));
+					}
 					ps.print("||");
 				}
 				ps.println("");
@@ -213,7 +228,8 @@ public class JSonBench {
 				if (value == null || value.intValue() == -1)
 					ps.print("N/A");
 				else
-					ps.print(nf.format(value));
+					ps.print(nf.format(value.floatValue() / bests.get("total").floatValue()));
+				// ps.print(nf.format(value));
 				ps.print("||");
 			}
 			ps.println("");
@@ -237,7 +253,7 @@ public class JSonBench {
 
 		if (file.exists()) {
 			String text = FileUtils.readFileToString(file);
-			root = (JSONObject) new JSONParser().parse(text);
+			root = (JSONObject) JSONValue.parse(text);
 		} else {
 			root = new JSONObject();
 		}
