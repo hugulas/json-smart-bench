@@ -1,25 +1,27 @@
 package net.minidev.bench.json.impl;
 
-import argo.format.*;
-import argo.jdom.*;
+import org.json.simple.*;
+import org.json.simple.parser.JSONParser;
 
 /**
- * http://argo.sourceforge.net/
+ * http://code.google.com/p/json-simple/
+ * http://code.google.com/p/json-test-suite/
+ * 
+ * @author uriel
+ *
  */
-public class Agro extends net.minidev.bench.json.JsonInter {
-	JdomParser p;
-	JsonFormatter w;
+public class JsonSimple extends net.minidev.bench.json.JsonInter {
 	Object obj;
+	JSONParser p;
 	
-	public Agro() {
+	public JsonSimple() {
 		init();
 	}
 	
 	@Override
 	public void init() {
-		p = new JdomParser();
-		w = new CompactJsonFormatter();
 		obj = null;
+		p = new JSONParser();
 	}
 
 	@Override
@@ -36,11 +38,10 @@ public class Agro extends net.minidev.bench.json.JsonInter {
 
 	@Override
 	public String toJsonString() {
-		return w.format((JsonRootNode)obj);
+		return ((JSONAware)obj).toJSONString();
 	}
-
 	@Override
 	public String getSimpleName() {
-		return "Argo";
+		return "json-Simple";
 	}
 }

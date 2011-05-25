@@ -27,9 +27,9 @@ public class JSonBench {
 	public final static int LOOP_COUNT = 500000;
 
 	@SuppressWarnings("rawtypes")
-	static Class[] clazz = new Class[] { StringTree.class, JSonIJ.class, Jackson.class, Agro.class, Simple.class,
-			Sojo.class, Alibaba.class, NetSfJson.class, OrgJSonMe.class, OrgJSon.class, JSonSmartStrict.class,
-			JSonSmart.class };
+	static Class[] clazz = new Class[] { StringTree.class, JsonIJ.class, Jackson.class, Argo.class, JsonSimple.class,
+			Sojo.class, Alibaba.class, NetSfJson.class, OrgJSonMe.class, OrgJSon.class, JsonSmartStrict.class,
+			JsonSmart.class };
 
 	// GoogleGson.class,
 	public static void main(String[] args) throws Exception {
@@ -68,7 +68,8 @@ public class JSonBench {
 			} else {
 				impId = Integer.parseInt(args[1]);
 			}
-			TestData.changeTest(testName);
+			BenchData.cleanCache();
+			BenchData.changeTest(testName);
 			if (impId >= clazz.length)
 				return;
 			String apiName = ((JsonInter) (clazz[impId].newInstance())).getSimpleName();
@@ -406,7 +407,7 @@ public class JSonBench {
 
 	@SuppressWarnings("rawtypes")
 	static void bench() throws Exception {
-		ArrayList<String> msgs = TestData.genTestMessages();
+		ArrayList<String> msgs = BenchData.genTestMessages();
 		for (Class c : clazz) {
 			bench(c, msgs);
 		}
@@ -415,7 +416,7 @@ public class JSonBench {
 	static long bench(int classId) throws Exception {
 		if (classId >= clazz.length)
 			return -1;
-		return bench(clazz[classId], TestData.genTestMessages());
+		return bench(clazz[classId], BenchData.genTestMessages());
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -439,7 +440,7 @@ public class JSonBench {
 				p.parseObj(text);
 			}
 			T1 = System.currentTimeMillis() - T1;
-			System.out.println(TestData.testMode + "> " + p.getSimpleName() + " : " + T1 + "ms");
+			System.out.println(BenchData.testMode + "> " + p.getSimpleName() + " : " + T1 + "ms");
 			return T1;
 		} catch (Exception e) {
 			// System.out.println("Parser error " + e);

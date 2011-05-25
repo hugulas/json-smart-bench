@@ -47,84 +47,6 @@ public class TestData {
 		return false;
 	}
 
-	static ArrayList<String> testMsgs;
-
-	/**
-	 * 17 key, 17 is a prim number
-	 */
-	static String[] keys = new String[] { "firstname", "lastname", "date", "len", "shape", "gate", "foo", "bar",
-			"city", "site", "url", "age", "action", "level", "password", "color", "case" };
-
-	/**
-	 * 13 values, 13 is a prim number
-	 */
-	static String[] valueMixt = new String[] { "\"jean\"", "120445", "12", "\"Paris\"", "\"pacifica\"",
-			"\"44reg(a{[|)@\"", "true", "false", "null", "1.1245E-12", "{\"Sub\":5}", "[\"DFG\", \"ABC\"]",
-			"\"AnnotherValue\"" };
-
-	static String[] valueText = new String[] { "jean", "jinna", "paris", "city", "pacifica", "abc", "jeanjouuul" };
-	static String[] valueTextProtected = new String[] { "\"jean\"", "\"jinna\"", "\"paris\"", "\"city\"",
-			"\"pacifica\"" };
-	static String[] valueBoolean = new String[] { "true", "true", "false", "true", "false", "false" };
-	static String[] valueInt = new String[] { "1442", "15005", "44", "58", "4253478", "72352284", "55433456",
-			"332211223" };
-	static String[] valueFloat = new String[] { "1442.12", "15005.12", "44.12", "58.10", "478.2", "2284.5", "33456.12",
-			"332211.12" };
-	static String[] valueUnicode = new String[] { "\"\\u44FF\\u44ff\"", "\"\\u44ff\"", "\"\\u44aa\\u44ff\"",
-			"\"\\u44AA\"", "\"\\u4425\"", "\"\\u4426\"", "\"\\u4427\\u44FF\"" };
-
-	static String[] value = null;
-	static public String testMode = null;
-
-	public static void changeTest(String name) {
-		testMode = name;
-		testMsgs = null;
-		if (name.equals("mixte"))
-			value = valueMixt;
-		else if (name.equals("int"))
-			value = valueInt;
-		else if (name.equals("float"))
-			value = valueFloat;
-		else if (name.equals("boolean"))
-			value = valueBoolean;
-		else if (name.equals("bool"))
-			value = valueBoolean;
-		else if (name.equals("text"))
-			value = valueTextProtected;
-		else if (name.equals("string"))
-			value = valueText;
-		else if (name.equals("unicode"))
-			value = valueUnicode;
-		else
-			System.err.println("non supported Test Type:" + name);
-	}
-
-	public static ArrayList<String> genTestMessages() {
-		if (testMsgs != null)
-			return testMsgs;
-
-		testMsgs = new ArrayList<String>();
-		int nbValue = keys.length * value.length;
-		for (int i = 0; i < nbValue; i++) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("{\"");
-			sb.append(keys[i % keys.length]).append("\":");
-			sb.append(value[i % value.length]);
-
-			sb.append(",\"");
-			sb.append(keys[(i + 1) % keys.length]).append("\":");
-			sb.append(value[(i + i) % value.length]);
-
-			sb.append(",\"");
-			sb.append(keys[(i + 2) % keys.length]).append("\":");
-			sb.append(value[(i + 2) % value.length]);
-
-			sb.append("}");
-			testMsgs.add(sb.toString());
-		}
-		return testMsgs;
-	}
-
 	static public int DEFAULT_SCORE = 100;
 
 	static public ArrayList<TestData> tests;
@@ -152,7 +74,7 @@ public class TestData {
 		t.setData("{ \"PI\":3.141E-10}");
 		t.setSolution("{\"PI\":3.141E-10}", "{\"PI\":3.141e-10}");
 		tests.add(t);
-		
+
 		t = new TestData("Support lowcase float value");
 		t.setData("{ \"PI\":3.141e-10}");
 		t.setSolution("{\"PI\":3.141E-10}", "{\"PI\":3.141e-10}");
@@ -171,7 +93,6 @@ public class TestData {
 		t.setData("{ \"v\":\"\\u2000\\u20ff\"}");
 		t.setSolution("{\"v\":\"\\u2000\\u20ff\"}", "{\"v\":\"\\u2000\\u20FF\"}");
 		tests.add(t);
-
 
 		t = new TestData("Support uppercase Unicode Text");
 		t.setData("{ \"v\":\"\\u2000\\u20FF\"}");
@@ -298,11 +219,11 @@ public class TestData {
 		t = new TestData("[ a},b]", "[\"a}\",\"b\"]", "Support non protected array value contains }");
 		t.canKill = true;
 		tests.add(t);
-		
+
 		t = new TestData("[ a:,b]", "[\"a:\",\"b\"]", "Support non protected array value contains :");
 		t.canKill = true;
 		tests.add(t);
-		
+
 		DEFAULT_SCORE = 1;
 		t = new TestData("{ a,b:123}", "{\"a,b\":123}", "Support non protected keys contains ,");
 		tests.add(t);

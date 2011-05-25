@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testSuite name="XPathpex" xmlns="http://www.sun.com/japex/testSuite"
+	xmlns:xi="http://www.w3.org/2001/XInclude">
+
+	<description>
+		<div xmlns="">
+			<p>Micro-benchmark for low-level databinded JSON parsers</p>
+		</div>
+	</description>
+
+	<param name="japex.classPath" value="japlex/*.jar" />
+
+	<!-- Very long run (3+ hours) -->
+	<!-- <param name="japex.warmupTime" value="7" /> -->
+	<!-- <param name="japex.runTime" value="25" /> -->
+	<!-- <param name="japex.warmupsPerDriver" value="1" /> -->
+	<!-- <param name="japex.runsPerDriver" value="3" /> -->
+
+	<!-- <param name="japex.warmupTime" value="4"/> -->
+	<!-- <param name="japex.runTime" value="13"/> -->
+	<!-- <param name="japex.warmupsPerDriver" value="1"/> -->
+	<!-- <param name="japex.runsPerDriver" value="1"/> -->
+
+	<!-- For quickie testing of correctness etc. of inputs: -->
+
+	<!-- <param name="japex.warmupTime" value="3" /> -->
+	<!-- <param name="japex.runTime" value="5" /> -->
+	<!-- <param name="japex.warmupsPerDriver" value="1" /> -->
+	<!-- <param name="japex.runsPerDriver" value="1" /> -->
+
+
+	<param name="japex.warmupIterations" value="0" />
+	<!--<param name="japex.warmupTime" value="2" /> -->
+	<param name="japex.runTime" value="1" />
+	<param name="japex.warmupsPerDriver" value="0" />
+	<param name="japex.runsPerDriver" value="1" />
+
+
+	<param name="japex.reportsDirectory" value="reports" />
+
+	<driverGroup name="all">
+
+		<xi:include href="entities/AlibabaDriver.xml" />
+		<xi:include href="entities/ArgoDriver.xml" />
+		<xi:include href="entities/GoogleGsonDriver.xml" />
+		<xi:include href="entities/JacksonDriver.xml" />
+		<xi:include href="entities/JsonIJDriver.xml" />
+		<xi:include href="entities/JsonOrgDriver.xml" />
+		<xi:include href="entities/JsonSimpleDriver.xml" />
+		<xi:include href="entities/JsonSmartDriver.xml" />
+		<xi:include href="entities/JsonSmartStrictDriver.xml" />
+<!--		<xi:include href="entities/JsonToolsDriver.xml" />-->
+		<xi:include href="entities/OrgJsonDriver.xml" />
+		<xi:include href="entities/OrgJsonMeDriver.xml" />
+		<xi:include href="entities/StringTreeDriver.xml" />
+
+	</driverGroup>
+
+	<testCase name="mixte">
+		<param name="japex.testType" value="mixte" />
+	</testCase>
+	<testCase name="int">
+		<param name="japex.testType" value="int" />
+	</testCase>
+	<testCase name="float">
+		<param name="japex.testType" value="float" />
+	</testCase>
+	<testCase name="boolean">
+		<param name="japex.testType" value="boolean" />
+	</testCase>
+	<testCase name="text">
+		<param name="japex.testType" value="text" />
+	</testCase>
+	<!-- <testCase name="unicode"> -->
+	<!-- <param name="japex.testType" value="unicode" /> -->
+	<!-- </testCase> -->
+</testSuite>

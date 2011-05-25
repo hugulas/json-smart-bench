@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<driver name="JsonSmart" xmlns="http://www.sun.com/japex/testSuite"
+	normal="true">
+	<description>
+		<div xmlns="">
+			<p>Driver for Json-smart parser</p>
+		</div>
+	</description>
+
+	<param name="japex.driverClass" value="net.minidev.bench.json.impl.JsonSmart" />
+	<param name="japex.classPath" value="bin" />
+	<param name="japex.classPath" value="lib/json-smart*.jar" />
+</driver>

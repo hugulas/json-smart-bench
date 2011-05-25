@@ -1,28 +1,27 @@
 package net.minidev.bench.json.impl;
-//package net.minidev.bench.json.impl;
-//
+
 //import java.io.StringReader;
 //
-//import net.minidev.bench.json.JsonInter;
-//
-//import com.sdicons.json.parser.*;
-//
-///**
-// * http://prdownload.berlios.de/jsontools/
-// * 
-// * @author uriel
-// *
-// */
-//public class JsonInterJSonTool extends JsonInter {
+//import com.sdicons.json.parser.JSONParser;
+
+/**
+ * http://prdownload.berlios.de/jsontools/
+ * 
+ * JsonInter is only a tokenizer
+ * 
+ * @author uriel
+ *
+ */
+//public class JsonInterJSonTool extends net.minidev.bench.json.JsonInter {
 //	String text;
 //	
 //	@Override
 //	public Object parseObj(String json) throws Exception {
 //		JSONParser p = new JSONParser(new StringReader(json));
-//		p.nextValue();
+////		p.nextValue();
 //		//JSONWriter w = new JSONWriter();
 //		//w.write(object)
-//		return obj;
+//		return null;
 //	}
 //
 //	@Override
@@ -37,5 +36,14 @@ package net.minidev.bench.json.impl;
 //		return text;
 //	}
 //
+//	@Override
+//	public void init() throws Exception {
+//		// TODO Auto-generated method stub
+//		
+//	}
 //
+//	@Override
+//	public String getSimpleName() {
+//		return "Json-tools";
+//	}
 //}

@@ -5,10 +5,10 @@ import jsonij.json.*;
 /**
  * http://projects.plural.cc/projects/jsonij
  */
-public class JSonIJ extends net.minidev.bench.json.JsonInter {
+public class JsonIJ extends net.minidev.bench.json.JsonInter {
 	JSON obj;
 	
-	public JSonIJ() {
+	public JsonIJ() {
 		init();
 	}
 	

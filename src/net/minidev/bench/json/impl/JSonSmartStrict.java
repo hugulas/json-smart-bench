@@ -9,11 +9,11 @@ import net.minidev.json.parser.*;
  * @author uriel
  *
  */
-public class JSonSmartStrict extends net.minidev.bench.json.JsonInter {
+public class JsonSmartStrict extends net.minidev.bench.json.JsonInter {
 	JSONParser p;
 	Object obj;
 	
-	public JSonSmartStrict() {
+	public JsonSmartStrict() {
 		init();
 	}
 	

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Let's include all Jackson drivers in a single bundle -->
+<driver name="Jackson">
+	<description>
+		<div xmlns="">
+			<p>Driver for Jackson</p>
+		</div>
+	</description>
+
+	<param name="japex.driverClass" value="net.minidev.bench.json.impl.Jackson" />
+	<param name="japex.classPath" value="bin" />
+	<param name="japex.classPath" value="lib/jackson*.jar" />
+</driver>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<driver name="NetSfJson" xmlns="http://www.sun.com/japex/testSuite">
+    <description>
+        <div xmlns="">
+            <p>Driver for net sf Json.</p>
+        </div>
+    </description>
+    <param name="japex.driverClass" value="net.minidev.bench.json.impl.NetSfJson"/>    
+	<param name="japex.classPath" value="bin" />
+	<param name="japex.classPath" value="lib/*.jar" />
+</driver>
