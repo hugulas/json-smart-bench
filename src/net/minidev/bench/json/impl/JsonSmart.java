@@ -20,7 +20,7 @@ public class JsonSmart extends net.minidev.bench.json.JsonInter {
 	@Override
 	public void init() {
 		obj = null;
-		p = new JSONParser(JSONParser.MODE_PERMISSIF);
+		p = new JSONParser(JSONParser.MODE_PERMISSIVE);
 	}
 
 	

@@ -1,7 +1,6 @@
 package net.minidev.bench.json;
 
 import java.io.File;
-
 import java.io.IOException;
 import java.io.PrintStream;
 import java.text.NumberFormat;
@@ -38,6 +37,48 @@ public class JSonBench {
 		// start(new String[] { "showScript" });
 		// start(new String[] { "benchPreload", "int", "0"});
 		start(args);
+	}
+
+	public static String getDeep(int deep) {
+		StringBuilder sb = new StringBuilder(deep * 2);
+		for (int i = 0; i < deep; i++)
+			sb.append('[');
+		for (int i = 0; i < deep; i++)
+			sb.append(']');
+		return sb.toString();
+	}
+
+	public static String getDeep2(int deep) {
+		StringBuilder sb = new StringBuilder(deep * 6 + 10);
+		for (int i = 0; i < deep; i++)
+			sb.append("{\"a\":");		
+		sb.append("\"Done\"");
+		for (int i = 0; i < deep; i++)
+			sb.append('}');
+		return sb.toString();
+	}
+
+	public static void testCompression() throws Exception {
+		ArrayList<String> list = BenchData.getTestMessages("mixte", false);
+		test1(list);
+		long T = System.currentTimeMillis();
+		for (int i = 0; i < 1000; i++)
+			test1(list);
+		T = System.currentTimeMillis() - T;
+		System.out.println(T);
+		// 657
+	}
+
+	public static void test1(ArrayList<String> list) throws Exception {
+		for (String s : list) {
+			// 530
+			// JSONValue.compress(s, JSONStyle.MAX_COMPRESS);
+			// 640
+			JSONValue.compress(s);
+			// System.out.println(s);
+			// System.out.println(s2);
+			// System.out.println();
+		}
 	}
 
 	public static void start(String[] args) throws Exception {
